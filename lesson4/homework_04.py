@@ -76,7 +76,7 @@ print(f'task 07:\n{adwentures_of_tom_sawer_sentences}')
 Перетворіть рядок у нижній регістр.
 """
 
-sentences_4 = adwentures_of_tom_sawer_sentences [4]
+sentences_4 = adwentures_of_tom_sawer_sentences [3]
 print(f'task 08:\n{sentences_4.lower()}')
 
 # task 09
