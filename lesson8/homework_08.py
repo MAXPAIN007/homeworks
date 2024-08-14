@@ -29,7 +29,7 @@ def sum_all_chars_in_string_if_int (test_list: list) -> None:
             chars_list: list = item.split(",")
             result.append(sum(int(integer) for integer in chars_list))
     except ValueError as exception:
-        print(f"I can not sum your items list dur to: {exception}")
+        print(f"I can not sum your items list due to: {exception}")
     else:
         print(f"Variant 2 {result}")
 
