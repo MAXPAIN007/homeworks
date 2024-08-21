@@ -1,2 +1,4 @@
 main.py
 .idea/
+__pycache__
+lesson9/__init__.py
