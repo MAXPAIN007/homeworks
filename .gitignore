@@ -2,3 +2,5 @@ main.py
 .idea/
 __pycache__
 lesson9/__init__.py
+lesson10/__init__.py
+lesson10/login_system.log
