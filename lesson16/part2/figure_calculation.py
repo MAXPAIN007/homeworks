@@ -7,11 +7,11 @@ from lesson16.part2.triangele import Triangle
 
 square: Square=Square(10)
 
-circle:Circle=Circle(5)
+circle: Circle=Circle(5)
 
-rectangle:Rectangle=Rectangle(5,6)
+rectangle: Rectangle=Rectangle(5,6)
 
-triangle:Triangle=Triangle(6,7,9)
+triangle: Triangle=Triangle(6,7,9)
 
 figure_list:list[Figure]=[square,circle,rectangle,triangle]
 

@@ -8,10 +8,10 @@ class TestEmployees:
     qa_automation_team_lead:TeamLead=TeamLead("Ben", 1500, "BestTest Department", 15)
 
     expected_result:dict[str,object]={
-        "name":"Ben",
-        "salary":1500,
-        "department":"BestTest Department",
-        "team_size":15
+        "_name":"Ben",
+        "_salary":1500,
+        "_department":"BestTest Department",
+        "_team_size":15
     }
 
     def test_employee_attrs(self):
