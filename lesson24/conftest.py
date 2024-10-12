@@ -13,7 +13,7 @@ db_password = os.getenv('DB_PASSWORD')
 
 BASE_URL:str ="http://127.0.0.1:8080"
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="class", autouse=True)
 def authorization() -> None:
 
     auth = HTTPBasicAuth(db_user, db_password)
