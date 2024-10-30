@@ -67,22 +67,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            archiveArtifacts artifacts: 'report.xml', allowEmptyArchive: true
-        }
-
-        success {
-            mail to: 'InsertYour@Mail.Here',
-                 subject: "SUCCESS: Pipeline \${env.JOB_NAME} [\${env.BUILD_NUMBER}]",
-                 body: "Все тесты прошли успешно. Вы можете проверить результаты здесь: \${env.BUILD_URL}"
-        }
-
-        failure {
-            mail to: 'InsertYour@Mail.Here',
-                 subject: "FAILURE: Pipeline \${env.JOB_NAME} [\${env.BUILD_NUMBER}]",
-                 body: "Some tests was failed. Check tests` results here: \${env.BUILD_URL}"
-        }
-    }
 }
