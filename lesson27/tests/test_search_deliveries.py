@@ -12,7 +12,8 @@ class TestSearchDeliveries:
     search_page: SearchPage
 
     @pytest.mark.parametrize("tracking_number, expected_status", [
-        20451023463091, "Отримана"])
+        (20451023463091, "Отримана")
+    ])
 
     def test_search_delivery_status(self, web_driver, tracking_number,expected_status):
         self.main_page = MainPage(web_driver)
