@@ -9,22 +9,15 @@ pipeline {
             steps {
                 script {
                     sh """
-                        if command -v pyenv &> /dev/null; then
-                            echo "Pyenv is already installed."
-                        else
-                            echo "Installing pyenv..."
-                            curl https://pyenv.run | bash
-                        fi
-                        export PATH="\$HOME/.pyenv/bin:\$PATH"
-                        eval "\$(pyenv init --path)"
-                        eval "\$(pyenv init -)"
-
-                        if pyenv versions | grep -q \${PYTHON_VERSION}; then
-                            echo "Python \${PYTHON_VERSION} is already installed."
-                        else
-                            pyenv install \${PYTHON_VERSION}
-                        fi
-                        pyenv global \${PYTHON_VERSION}
+                    if where pyenv >nul 2>&1; then
+                        echo "Pyenv is already installed."
+                    else
+                        echo "Installing pyenv..."
+                        curl https://pyenv.run | bash
+                        set PATH=%PATH%;%USERPROFILE%\\.pyenv\\bin
+                        pyenv install ${PYTHON_VERSION}
+                        pyenv global ${PYTHON_VERSION}
+                    fi
                     """
                 }
             }
