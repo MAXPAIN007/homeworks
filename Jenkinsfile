@@ -56,14 +56,9 @@ pipeline {
                         source \${VENV_DIR}/bin/activate
                         pip install --upgrade pip
                         pip install -r requirements.txt
-                        pytest --maxfail=1 --disable-warnings -q lesson27/tests/test_search_deliveries.py --junitxml=report.xml
+                        pytest --maxfail=1 --disable-warnings -q lesson27/tests/test_search_deliveries.py
                     """
                 }
-            }
-        }
-        stage('Publish Test Results') {
-            steps {
-                junit 'report.xml'
             }
         }
     }
