@@ -1,18 +1,3 @@
-#FROM python:3.9
-#
-#WORKDIR /app
-#
-## Копіюємо всі файли
-#COPY requirements.txt /app/requirements.txt
-#COPY test_db.py /app/test_db.py
-#COPY db_config.py /app/db_config.py
-#
-## Встановлюємо залежності
-#RUN pip install -r requirements.txt
-#
-## Запускаємо тест
-#CMD ["pytest", "/app/test_db.py"]
-
 FROM python:3.9
 
 WORKDIR /app

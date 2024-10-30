@@ -9,13 +9,13 @@ from lesson28.core.pages.authorized_page import AuthorizedPage
 
 
 @allure.feature('User Registration')
-class TestSearchDeliveries:
+class TestUserRegistration:
     main_page: MainPage
     authorized_page: AuthorizedPage
 
     @allure.story('Register new user and verify authorization')
     @allure.step("Test registration and check if the logout button is visible")
-    def test_search_delivery_status(self, web_driver):
+    def test_user_registered(self, web_driver):
         with allure.step("Initialize MainPage and AuthorizedPage objects"):
             self.main_page = MainPage(web_driver)
             self.authorized_page = AuthorizedPage(web_driver)
