@@ -28,16 +28,11 @@ pipeline {
                     pip install -r requirements.txt
 
                     echo "Running tests..."
-                    pytest -v --maxfail=1 --disable-warnings --junitxml=report.xml -q lesson30/test_initial.py | tee pytest_output.txt
+                    pytest -v --maxfail=1 -q lesson30/test_initial.py | tee pytest_output.txt
 
                     echo "Listing files in the workspace to check for report.xml"
                     dir
                 '''
-            }
-        }
-        stage('Publish Test Results') {
-            steps {
-                junit 'report.xml'
             }
         }
     }
