@@ -1,44 +1,43 @@
 pipeline {
     agent any
     environment {
-        PYTHON_VERSION = '3.11.9'
+        PYTHON_VERSION = 'python3' // Убедитесь, что Python доступен в PATH
         VENV_DIR = 'venv'
     }
     stages {
-        stage('Install Python') {
+        stage('Checkout Code') {
             steps {
-                bat '''
-                if exist "%USERPROFILE%\\.pyenv" (
-                    echo Pyenv уже установлен.
-                ) else (
-                    echo Устанавливаем pyenv...
-                    curl -o pyenv-installer.bat https://pyenv.run
-                    pyenv-installer.bat
-                    set PATH=%USERPROFILE%\\.pyenv\\bin;%PATH%
-                )
-                '''
+                // Извлечение кода из репозитория
+                checkout scm
             }
         }
-        stage("Create Virtual Environment") {
+        stage('Create Virtual Environment') {
             steps {
-                bat '''
-                if not exist "%VENV_DIR%" (
-                    echo Создаем виртуальное окружение
-                    python -m venv %VENV_DIR%
-                ) else (
-                    echo Виртуальное окружение уже существует
-                )
-                '''
+                script {
+                    // Создание виртуального окружения
+                    bat """
+                        ${PYTHON_VERSION} -m venv ${VENV_DIR}
+                    """
+                }
             }
         }
-        stage("Install Dependencies and Run Tests") {
+        stage('Activate venv, Install Dependencies, and Run Tests') {
             steps {
-                bat '''
-                call %VENV_DIR%\\Scripts\\activate
-                pip install --upgrade pip
-                pip install -r requirements.txt
-                pytest --maxfail=1 --disable-warnings -q lesson30/test_initial.py
-                '''
+                script {
+                    // Активация виртуального окружения, установка зависимостей и запуск тестов
+                    bat """
+                        call ${VENV_DIR}\\Scripts\\activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                        pytest --maxfail=1 --disable-warnings -q lesson30/test_initial.py
+                    """
+                }
+            }
+        }
+        stage('Publish Test Results') {
+            steps {
+                // Загрузка результатов тестирования
+                junit 'report.xml'
             }
         }
     }

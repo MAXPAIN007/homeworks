@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from lesson_18.test_log_decorator import logger
+from lesson24.test_api_search import logger
 
 
 @allure.feature("This test class is for allure learning.")
@@ -25,7 +25,7 @@ class TestInitial:
     def test_uppercase(self, input_string, expected_output):
         assert input_string.upper() == expected_output
 
-    @allure.story("Test for issue vizualization")
+    @allure.story("Test for issue visualisation")
     @allure.issue("https://jira/ticket/AQA-567", "Test was failed due to assertion")
     @pytest.mark.skip("Skip due to known issue")
     def test_issue(self):
