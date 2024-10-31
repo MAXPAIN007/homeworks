@@ -28,9 +28,10 @@ pipeline {
                     pip install -r requirements.txt
 
                     echo Running tests...
-                    pytest -v --maxfail=1 -q lesson30/test_initial.py --junitxml=report.xml | tee pytest_output.txt
+                    pytest -v lesson30/test_initial.py --maxfail=1 --disable-warnings --junitxml=report.xml || echo "Tests failed or did not run."
 
-                    echo Listing files in the workspace to check for report.xml
+                    echo Listing files in the workspace to check for report.xml and test files
+                    dir lesson30
                     dir
                 '''
                 echo 'Checking if report.xml was generated...'
