@@ -26,7 +26,7 @@ pipeline {
                 echo 'Entering the test stage...'
                 bat '''
                     echo Activating virtual environment
-                    venv\\Scripts\\activate
+                    source venv/Scripts/activate
 
                     echo Checking if pytest is installed
                     pip show pytest || pip install pytest
