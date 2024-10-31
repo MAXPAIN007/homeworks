@@ -13,11 +13,7 @@ pipeline {
         stage('Create Virtual Environment') {
             steps {
                 bat '''
-                    if not exist venv (
-                        python -m venv venv
-                    ) else (
-                        echo "Virtual environment already exists."
-                    )
+                    if not exist venv (python -m venv venv) else (echo "Virtual environment already exists.")
                 '''
             }
         }
@@ -26,7 +22,7 @@ pipeline {
                 echo 'Entering the test stage...'
                 bat '''
                     echo Activating virtual environment
-                    source venv/Scripts/activate
+                    source venv\\Scripts\\activate
 
                     echo Checking if pytest is installed
                     pip show pytest || pip install pytest
@@ -35,14 +31,8 @@ pipeline {
                     pip install -r requirements.txt
 
                     echo Running tests...
-                    pytest -v --maxfail=1 -q lesson30/test_initial.py --junitxml=report.xml | tee pytest_output.txt
-
-                    echo Test execution completed. Checking if report.xml was generated...
-                    if exist report.xml (
-                        echo "report.xml found!"
-                    ) else (
-                        echo "report.xml not found!"
-                    )
+                    pytest -v --maxfail=1 -q lesson30/test_initial.py --junitxml=report.xml > pytest_output.txt
+                    type pytest_output.txt
                 '''
             }
         }
@@ -53,4 +43,3 @@ pipeline {
         }
     }
 }
-
