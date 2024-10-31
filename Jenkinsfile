@@ -33,6 +33,14 @@ pipeline {
                     echo Listing files in the workspace to check for report.xml
                     dir
                 '''
+                echo 'Checking if report.xml was generated...'
+                bat '''
+                    if exist report.xml (
+                        echo "report.xml found!"
+                    ) else (
+                        echo "report.xml not found!"
+                    )
+                '''
             }
         }
         stage('Publish Test Results') {
