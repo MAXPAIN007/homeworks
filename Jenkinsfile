@@ -13,29 +13,33 @@ pipeline {
         stage('Create Virtual Environment') {
             steps {
                 bat '''
-                    if not exist ${VENV_DIR} (
-                        python -m venv ${VENV_DIR}
-                    ) else (
-                        echo Virtual environment already exists.
-                    )
+                    if not exist venv (python -m venv venv) else (echo "Virtual environment already exists.")
                 '''
             }
         }
-        stage("Install Dependencies and Run Tests") {
+        stage('Install Dependencies and Run Tests') {
             steps {
+                echo 'Entering the test stage...'
                 bat '''
-                    ${VENV_DIR}\\Scripts\\activate
-                    pip install --upgrade pip
+                    echo "Activating virtual environment"
+                    venv\\Scripts\\activate
+
+                    echo "Installing dependencies..."
                     pip install -r requirements.txt
+
+                    echo "Running tests..."
                     pytest -v --maxfail=1 --disable-warnings --junitxml=report.xml -q lesson30/test_initial.py | tee pytest_output.txt
+
+                    echo "Listing files in the workspace to check for report.xml"
+                    dir
                 '''
             }
         }
         stage('Publish Test Results') {
             steps {
-                junit '**/report.xml'
-                archiveArtifacts artifacts: 'pytest_output.txt', allowEmptyArchive: true
+                junit 'report.xml'
             }
         }
     }
 }
+
