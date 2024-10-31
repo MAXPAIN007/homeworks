@@ -21,20 +21,26 @@ pipeline {
             steps {
                 echo 'Entering the test stage...'
                 bat '''
-                    echo "Activating virtual environment"
+                    echo Activating virtual environment
                     venv\\Scripts\\activate
 
-                    echo "Installing dependencies..."
+                    echo Installing dependencies...
                     pip install -r requirements.txt
 
-                    echo "Running tests..."
-                    pytest -v --maxfail=1 -q lesson30/test_initial.py | tee pytest_output.txt
+                    echo Running tests...
+                    pytest -v --maxfail=1 -q lesson30/test_initial.py --junitxml=report.xml | tee pytest_output.txt
 
-                    echo "Listing files in the workspace to check for report.xml"
+                    echo Listing files in the workspace to check for report.xml
                     dir
                 '''
             }
         }
+        stage('Publish Test Results') {
+            steps {
+                junit 'report.xml'
+            }
+        }
     }
 }
+
 
